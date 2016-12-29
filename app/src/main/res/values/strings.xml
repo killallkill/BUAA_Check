@@ -15,4 +15,17 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="title_activity_main">主页</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <string name="title_check_check">检查管理</string>
+    <string name="title_spot_check">抽查管理</string>
+    <string name="title_self_check">自查管理</string>
+    <string name="title_check_correction">检查整改</string>
+    <string name="title_spot_correction">抽查整改</string>
+    <string name="title_self_correction">自查整改</string>
 </resources>

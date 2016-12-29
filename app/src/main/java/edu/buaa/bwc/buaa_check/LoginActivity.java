@@ -3,6 +3,7 @@ package edu.buaa.bwc.buaa_check;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -33,6 +34,8 @@ import android.widget.TextView;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import edu.buaa.bwc.buaa_check.Api.UserService;
 import edu.buaa.bwc.buaa_check.Utils.RetrofitWrapper;
@@ -198,9 +201,17 @@ public class LoginActivity extends AppCompatActivity {
                     isLogging = false;
                     showProgress(false);
                     String html = response.body().string();
-                    Log.i("CheckCheck", html);
-                    if (html.indexOf("欢迎您") >= 0) {
+                    Log.d("LoginInfo", html);
+                    if (html.contains("欢迎您")) {
+                        String name = null;
+                        Pattern p = Pattern.compile("\\s*(.*)，欢迎您");
+                        Matcher m = p.matcher(html);
+                        if (m.find()) {
+                            name = m.group(1);
+                        }
+                        Log.d("LoginName", name);
                         finish();
+                        startMainActivity(name);
                     } else {
                         mPasswordView.setError(getString(R.string.error_incorrect_password));
                         mPasswordView.requestFocus();
@@ -219,6 +230,13 @@ public class LoginActivity extends AppCompatActivity {
                 t.printStackTrace();
             }
         });
+    }
+
+    private void startMainActivity(String name) {
+        Intent intent = new Intent(this, MainActivity.class);
+        if (name != null)
+            intent.putExtra("name", name);
+        startActivity(intent);
     }
 }
 
