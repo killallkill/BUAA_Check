@@ -9,6 +9,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 /**
  * Created by XJX on 2016/12/28.
@@ -17,6 +18,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitWrapper {
     private static RetrofitWrapper instance;
     private Retrofit retrofit;
+    private Retrofit scalarsRetrofit;
     private OkHttpClient mOkHttpClient;
 
     private RetrofitWrapper() {
@@ -34,6 +36,11 @@ public class RetrofitWrapper {
                 .client(mOkHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
+        scalarsRetrofit = new Retrofit.Builder()
+                .baseUrl(Constants.BASE_URL)
+                .client(mOkHttpClient)
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .build();
     }
 
     public static RetrofitWrapper getInstance() {
@@ -49,5 +56,9 @@ public class RetrofitWrapper {
 
     public <T> T create(final Class<T> service) {
         return retrofit.create(service);
+    }
+
+    public <T> T createScalar(final Class<T> service) {
+        return scalarsRetrofit.create(service);
     }
 }

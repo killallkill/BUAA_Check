@@ -1,6 +1,7 @@
-package edu.buaa.bwc.buaa_check;
+package edu.buaa.bwc.buaa_check.view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +19,9 @@ import java.util.List;
 import edu.buaa.bwc.buaa_check.Api.CheckCheckService;
 import edu.buaa.bwc.buaa_check.POJOs.CheckCheckItem;
 import edu.buaa.bwc.buaa_check.POJOs.ListResponse;
+import edu.buaa.bwc.buaa_check.R;
 import edu.buaa.bwc.buaa_check.Utils.RetrofitWrapper;
+import edu.buaa.bwc.buaa_check.adapter.MyCheckCheckRecyclerViewAdapter;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -57,17 +61,19 @@ public class CheckCheckFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
 
         mData = new ArrayList<CheckCheckItem>();
-        adapter = new MyCheckCheckRecyclerViewAdapter(mData);
+        adapter = new MyCheckCheckRecyclerViewAdapter(mData,getContext());
         adapter.setOnItemClickListener(new MyCheckCheckRecyclerViewAdapter.OnRecycleViewItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-
+                Intent intent = new Intent(CheckCheckFragment.this.getContext(), CheckCheckDetailActivity.class);
+                intent.putExtra("id", mData.get(position).id);
+                intent.putExtra("title",getActivity().getTitle());
+                startActivity(intent);
             }
         });
 
@@ -79,6 +85,9 @@ public class CheckCheckFragment extends Fragment {
                 for (CheckCheckItem i : response.body().rows) {
                     mData.add(i);
                     Log.d("CheckCheckItem", i.toString());
+                }
+                if (mData.size() == 0) {
+                    Toast.makeText(CheckCheckFragment.this.getContext(), "记录为空", Toast.LENGTH_SHORT).show();
                 }
                 adapter.notifyDataSetChanged();
             }

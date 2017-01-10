@@ -1,4 +1,4 @@
-package edu.buaa.bwc.buaa_check;
+package edu.buaa.bwc.buaa_check.view;
 
 /*
  * Copyright (C) 2014 The Android Open Source Project
