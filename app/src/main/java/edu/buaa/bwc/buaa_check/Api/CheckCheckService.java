@@ -1,5 +1,6 @@
 package edu.buaa.bwc.buaa_check.Api;
 
+import edu.buaa.bwc.buaa_check.POJOs.CheckCheckDetailHeader;
 import edu.buaa.bwc.buaa_check.POJOs.CheckCheckItem;
 import edu.buaa.bwc.buaa_check.POJOs.DeleteCheckResponse;
 import edu.buaa.bwc.buaa_check.POJOs.ListResponse;
@@ -21,4 +22,12 @@ public interface CheckCheckService {
     @FormUrlEncoded
     @POST("c_spot_del.do")
     Call<DeleteCheckResponse> delCheckCheckItem(@Field("id") String id, @Field("userId") String userId);
+
+    @FormUrlEncoded
+    @POST("c_spot_view.do")
+    Call<CheckCheckDetailHeader> getCheckDetailHeader(@Field("id") String id);
+
+    @FormUrlEncoded
+    @POST("c_c_view.do")
+    Call<String> getCheckDetail(@Field("id") String id);
 }

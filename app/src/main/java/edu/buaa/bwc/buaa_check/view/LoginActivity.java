@@ -1,4 +1,4 @@
-package edu.buaa.bwc.buaa_check;
+package edu.buaa.bwc.buaa_check.view;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -22,6 +22,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import edu.buaa.bwc.buaa_check.Api.UserService;
+import edu.buaa.bwc.buaa_check.R;
 import edu.buaa.bwc.buaa_check.Utils.RetrofitWrapper;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -50,8 +51,10 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         mUsernameView = (EditText) findViewById(R.id.username);
+        mUsernameView.setText("bwcceshi");
 
         mPasswordView = (EditText) findViewById(R.id.password);
+        mPasswordView.setText("123edc");
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
