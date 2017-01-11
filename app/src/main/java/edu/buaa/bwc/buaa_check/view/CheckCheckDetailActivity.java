@@ -49,7 +49,6 @@ public class CheckCheckDetailActivity extends AppCompatActivity {
         setTitle(intent.getStringExtra("title"));
         initView();
         loadData(id);
-        startActivity(new Intent());
     }
 
     private void initView() {
