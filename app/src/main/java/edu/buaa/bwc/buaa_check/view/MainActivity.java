@@ -1,11 +1,9 @@
-package edu.buaa.bwc.buaa_check;
+package edu.buaa.bwc.buaa_check.view;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.util.Log;
-import android.view.View;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -14,6 +12,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+
+import edu.buaa.bwc.buaa_check.R;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -50,11 +50,20 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    private boolean canAdd = false;
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
         return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        if (canAdd) {
+            getMenuInflater().inflate(R.menu.main, menu);
+        }
+        return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
@@ -65,7 +74,10 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.add) {
+            Intent intent=new Intent(this,CheckCheckAddActivity.class);
+            intent.putExtra("title",getTitle());
+            startActivity(intent);
             return true;
         }
 
@@ -79,21 +91,35 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_check_check) {
-            // Handle the camera action
+            setToolbar(true, "检查管理");
+            CheckCheckFragment checkCheckFragment = CheckCheckFragment.newInstance(1);
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.content_main, checkCheckFragment);
+            transaction.commit();
         } else if (id == R.id.nav_spot_check) {
+            setToolbar(true, "抽查管理");
 
         } else if (id == R.id.nav_self_check) {
+            setToolbar(true, "自查管理");
 
         } else if (id == R.id.nav_check_correction) {
+            setToolbar(false, "检查整改");
 
         } else if (id == R.id.nav_spot_correction) {
+            setToolbar(false, "抽查整改");
 
         } else if (id == R.id.nav_self_correction) {
-
+            setToolbar(false, "自查整改");
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void setToolbar(boolean canAdd, String title) {
+        this.canAdd = canAdd;
+        invalidateOptionsMenu();
+        setTitle(title);
     }
 }

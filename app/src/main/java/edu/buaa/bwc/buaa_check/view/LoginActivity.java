@@ -1,50 +1,33 @@
-package edu.buaa.bwc.buaa_check;
+package edu.buaa.bwc.buaa_check.view;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.app.LoaderManager.LoaderCallbacks;
-
-import android.content.CursorLoader;
-import android.content.Loader;
-import android.database.Cursor;
-import android.net.Uri;
-import android.os.AsyncTask;
-
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.ContactsContract;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import edu.buaa.bwc.buaa_check.Api.UserService;
+import edu.buaa.bwc.buaa_check.R;
 import edu.buaa.bwc.buaa_check.Utils.RetrofitWrapper;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static android.Manifest.permission.READ_CONTACTS;
 
 /**
  * A login screen that offers login via email/password.
@@ -68,8 +51,10 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         mUsernameView = (EditText) findViewById(R.id.username);
+        mUsernameView.setText("bwcceshi");
 
         mPasswordView = (EditText) findViewById(R.id.password);
+        mPasswordView.setText("123edc");
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -201,7 +186,6 @@ public class LoginActivity extends AppCompatActivity {
                     isLogging = false;
                     showProgress(false);
                     String html = response.body().string();
-                    Log.d("LoginInfo", html);
                     if (html.contains("欢迎您")) {
                         String name = null;
                         Pattern p = Pattern.compile("\\s*(.*)，欢迎您");
