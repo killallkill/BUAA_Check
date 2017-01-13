@@ -76,12 +76,21 @@ public class CheckCheckFragment extends Fragment {
                 startActivity(intent);
             }
         });
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadData();
+    }
+
+    private void loadData() {
         CheckCheckService service = RetrofitWrapper.getInstance().create(CheckCheckService.class);
         Call<ListResponse<CheckCheckItem>> call = service.getCheckCheckList(1, 20);
         call.enqueue(new Callback<ListResponse<CheckCheckItem>>() {
             @Override
             public void onResponse(Call<ListResponse<CheckCheckItem>> call, Response<ListResponse<CheckCheckItem>> response) {
+                mData.clear();
                 for (CheckCheckItem i : response.body().rows) {
                     mData.add(i);
                     Log.d("CheckCheckItem", i.toString());
