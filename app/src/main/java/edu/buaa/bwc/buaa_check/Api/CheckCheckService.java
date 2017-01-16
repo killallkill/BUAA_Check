@@ -1,13 +1,22 @@
 package edu.buaa.bwc.buaa_check.Api;
 
+import java.io.File;
+import java.util.List;
+
 import edu.buaa.bwc.buaa_check.POJOs.CheckCheckDetailHeader;
 import edu.buaa.bwc.buaa_check.POJOs.CheckCheckItem;
+import edu.buaa.bwc.buaa_check.POJOs.CheckRole;
+import edu.buaa.bwc.buaa_check.POJOs.CheckUnit;
 import edu.buaa.bwc.buaa_check.POJOs.DeleteCheckResponse;
 import edu.buaa.bwc.buaa_check.POJOs.ListResponse;
+import edu.buaa.bwc.buaa_check.POJOs.OtherCheckPeople;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 
 /**
  * Created by XJX on 2017/1/3.
@@ -30,4 +39,28 @@ public interface CheckCheckService {
     @FormUrlEncoded
     @POST("c_c_view.do")
     Call<String> getCheckDetail(@Field("id") String id);
+
+    //检查角色
+    @POST("c_c_dept_role_check_list.do")
+    Call<List<CheckRole>> getCheckRole();
+
+    //其它检查人员
+    @POST("c_c_u_check_list.do")
+    Call<List<OtherCheckPeople>> getOtherCheckPeople();
+
+    //获取被检查单位列表
+    @FormUrlEncoded
+    @POST("c_c_dept_list.do")
+    Call<List<CheckUnit>> getCheckUnit(@Field("id") String id);
+
+    //获取三级单位列表
+    @FormUrlEncoded
+    @POST("c_c_dept_list.do")
+    Call<List<CheckUnit>> getThreeClassUnit(@Field("id") String id);
+
+    @Multipart
+    @POST("")
+    Call<ResponseBody> upload(@Part("") File file);
+
+
 }
