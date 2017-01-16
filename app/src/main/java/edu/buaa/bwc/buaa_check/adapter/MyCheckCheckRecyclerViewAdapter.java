@@ -15,10 +15,10 @@ import java.util.List;
 
 import edu.buaa.bwc.buaa_check.Api.CheckCheckService;
 import edu.buaa.bwc.buaa_check.POJOs.CheckCheckItem;
-import edu.buaa.bwc.buaa_check.POJOs.DeleteCheckResponse;
+import edu.buaa.bwc.buaa_check.POJOs.NormalResponse;
 import edu.buaa.bwc.buaa_check.R;
 import edu.buaa.bwc.buaa_check.Utils.RetrofitWrapper;
-import edu.buaa.bwc.buaa_check.view.CheckCheckRectifyActivity;
+import edu.buaa.bwc.buaa_check.view.RectifySendActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -106,11 +106,11 @@ public class MyCheckCheckRecyclerViewAdapter extends RecyclerView.Adapter<MyChec
                         final int position = getAdapterPosition();
                         CheckCheckItem checkCheckItemitem = mData.get(position);
                         CheckCheckService service = RetrofitWrapper.getInstance().create(CheckCheckService.class);
-                        Call<DeleteCheckResponse> call = service.delCheckCheckItem(checkCheckItemitem.id, checkCheckItemitem.userId);
-                        call.enqueue(new Callback<DeleteCheckResponse>() {
+                        Call<NormalResponse> call = service.delCheckCheckItem(checkCheckItemitem.id, checkCheckItemitem.userId);
+                        call.enqueue(new Callback<NormalResponse>() {
                             @Override
-                            public void onResponse(Call<DeleteCheckResponse> call, Response<DeleteCheckResponse> response) {
-                                DeleteCheckResponse dcr = response.body();
+                            public void onResponse(Call<NormalResponse> call, Response<NormalResponse> response) {
+                                NormalResponse dcr = response.body();
                                 if (dcr.success) {
                                     Snackbar.make(mView, dcr.message, Snackbar.LENGTH_SHORT).show();
                                     mData.remove(position);
@@ -121,13 +121,15 @@ public class MyCheckCheckRecyclerViewAdapter extends RecyclerView.Adapter<MyChec
                             }
 
                             @Override
-                            public void onFailure(Call<DeleteCheckResponse> call, Throwable t) {
+                            public void onFailure(Call<NormalResponse> call, Throwable t) {
                                 t.printStackTrace();
                             }
                         });
                         break;
                     case 2:
-                        Intent intent = new Intent(mContext, CheckCheckRectifyActivity.class);
+                        Intent intent = new Intent(mContext, RectifySendActivity.class);
+                        intent.putExtra("type", RectifySendActivity.TYPE_CHECK_CHECK);
+                        intent.putExtra("id", mData.get(getAdapterPosition()).id);
                         mContext.startActivity(intent);
                         break;
                 }

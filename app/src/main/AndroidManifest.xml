@@ -31,7 +31,9 @@
         <activity android:name=".view.CheckCheckDetailActivity" />
         <activity android:name=".view.CheckCheckAddActivity" />
         <activity android:name=".view.CheckCheckRectifyActivity" />
+
         <activity android:name=".view.CheckAddUploadActivity" />
+        <activity android:name=".view.RectifySendActivity"></activity>
     </application>
 
 </manifest>

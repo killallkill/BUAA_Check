@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_rectify_send"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="edu.buaa.bwc.buaa_check.view.RectifySendActivity">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="1">
+        <TableRow>
+            <TextView
+                android:text="隐患级别："
+                android:gravity="end"/>
+            <Spinner
+                android:id="@+id/rectify_level"
+                android:gravity="start"></Spinner>
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:text="整改期限："
+                android:gravity="end"/>
+            <EditText
+                android:id="@+id/rectify_day"
+                android:gravity="start"
+                android:inputType="number"></EditText>
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:text="整改人："
+                android:gravity="end"/>
+            <Spinner
+                android:id="@+id/rectify_name"
+                android:gravity="start"></Spinner>
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:text="整改建议："
+                android:gravity="end"/>
+            <EditText
+                android:id="@+id/rectify_proposal"
+                android:gravity="start"
+                android:inputType="textMultiLine"/>
+        </TableRow>
+        <Button
+            android:id="@+id/rectify_submit"
+            android:text="提交"/>
+    </TableLayout>
+
+</RelativeLayout>
