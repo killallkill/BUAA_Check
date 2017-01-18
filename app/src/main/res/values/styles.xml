@@ -17,4 +17,16 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="check_check_add_title_textView">
+        <item name="android:textSize">16sp</item>
+        <item name="android:padding">7dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="check_check_add_select_editView" parent="@style/check_check_add_title_textView">
+        <item name="android:background">@drawable/check_add_bg</item>
+        <item name="android:editable">false</item>
+    </style>
+
 </resources>

@@ -1,13 +1,168 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_check_check_add"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="edu.buaa.bwc.buaa_check.view.CheckCheckAddActivity">
+    android:layout_height="match_parent">
 
-</RelativeLayout>
+    <LinearLayout
+        android:id="@+id/activity_check_check_add"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        tools:context="edu.buaa.bwc.buaa_check.view.CheckCheckAddActivity">
+
+        <LinearLayout
+            android:id="@+id/root"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/check_check_add_title_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="检查角色:" />
+
+                <TextView
+                    style="@style/check_check_add_title_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="检查记录人:" />
+
+                <TextView
+                    style="@style/check_check_add_title_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="其他检查人员:" />
+
+                <TextView
+                    style="@style/check_check_add_title_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="被检查单位:" />
+
+                <TextView
+                    style="@style/check_check_add_title_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="3级单位:" />
+
+                <TextView
+                    style="@style/check_check_add_title_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="检查时间:" />
+
+                <TextView
+                    style="@style/check_check_add_title_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="检查地点:" />
+
+                <TextView
+                    style="@style/check_check_add_title_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="层:" />
+
+                <TextView
+                    style="@style/check_check_add_title_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="房间(公共区域):" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/select"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
+                android:gravity="start"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/check_role"
+                    style="@style/check_check_add_select_editView"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content" />
+
+                <EditText
+                    android:id="@+id/check_recorder"
+                    style="@style/check_check_add_select_editView"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content" />
+
+                <EditText
+                    android:id="@+id/other_check_people"
+                    style="@style/check_check_add_select_editView"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content" />
+
+                <EditText
+                    android:id="@+id/check_company"
+                    style="@style/check_check_add_select_editView"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content" />
+
+                <EditText
+                    android:id="@+id/three_class_company"
+                    style="@style/check_check_add_select_editView"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content" />
+
+                <EditText
+                    android:id="@+id/check_time"
+                    style="@style/check_check_add_select_editView"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content" />
+
+                <EditText
+                    android:id="@+id/check_location"
+                    style="@style/check_check_add_select_editView"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content" />
+
+                <EditText
+                    android:id="@+id/floor"
+                    style="@style/check_check_add_select_editView"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content" />
+
+                <EditText
+                    android:id="@+id/room"
+                    style="@style/check_check_add_select_editView"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/choose_plate"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:padding="5dp"
+            android:text="选择模板" />
+
+        <Button
+            android:id="@+id/save"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:layout_marginTop="20dp"
+            android:padding="5dp"
+            android:text="保 存" />
+
+    </LinearLayout>
+</ScrollView>
