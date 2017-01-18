@@ -98,6 +98,10 @@ public class MainActivity extends AppCompatActivity
             transaction.commit();
         } else if (id == R.id.nav_spot_check) {
             setToolbar(true, "抽查管理");
+            CheckSpotFragment checkSpotFragment = CheckSpotFragment.newInstance(1);
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.content_main, checkSpotFragment);
+            transaction.commit();
 
         } else if (id == R.id.nav_self_check) {
             setToolbar(true, "自查管理");
