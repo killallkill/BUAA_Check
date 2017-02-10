@@ -9,7 +9,6 @@ import edu.buaa.bwc.buaa_check.POJOs.CheckCheckItem;
 
 import edu.buaa.bwc.buaa_check.POJOs.CheckRole;
 import edu.buaa.bwc.buaa_check.POJOs.CheckUnit;
-import edu.buaa.bwc.buaa_check.POJOs.DeleteCheckResponse;
 import edu.buaa.bwc.buaa_check.POJOs.ListResponse;
 import edu.buaa.bwc.buaa_check.POJOs.OtherCheckPeople;
 import okhttp3.ResponseBody;
