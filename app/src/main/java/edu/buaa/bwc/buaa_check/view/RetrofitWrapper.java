@@ -1,4 +1,4 @@
-package edu.buaa.bwc.buaa_check.Utils;
+package edu.buaa.bwc.buaa_check.view;
 
 import java.net.CookieManager;
 import java.net.CookiePolicy;

@@ -16,25 +16,25 @@ import com.google.gson.JsonParser;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.buaa.bwc.buaa_check.Api.CheckCheckService;
-import edu.buaa.bwc.buaa_check.POJOs.CheckCheckDetail;
-import edu.buaa.bwc.buaa_check.POJOs.CheckCheckDetailHeader;
+import edu.buaa.bwc.buaa_check.Api.SelfCheckService;
+import edu.buaa.bwc.buaa_check.POJOs.SelfCheckDetail;
+import edu.buaa.bwc.buaa_check.POJOs.SelfCheckDetailHeader;
 import edu.buaa.bwc.buaa_check.R;
 import edu.buaa.bwc.buaa_check.Utils.GsonUtils;
-import edu.buaa.bwc.buaa_check.adapter.MyCheckCheckDetailAdapter;
+import edu.buaa.bwc.buaa_check.adapter.MySelfCheckDetailAdapter;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CheckCheckDetailActivity extends AppCompatActivity {
+public class SelfCheckDetailActivity extends AppCompatActivity {
 
     private TextView checkName;
     private TextView otherCheckName;
     private TextView checkUnit;
     private TextView checkTime;
     private TextView checkLocation;
-    private MyCheckCheckDetailAdapter myCheckCheckDetailAdapter;
-    private List<CheckCheckDetail> mData = new ArrayList<>();
+    private MySelfCheckDetailAdapter mySelfCheckDetailAdapter;
+    private List<SelfCheckDetail> mData = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +42,7 @@ public class CheckCheckDetailActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-        setContentView(R.layout.activity_check_check_detail_avtivity);
+        setContentView(R.layout.activity_self_check_detail_activity);
         Intent intent = getIntent();
         String id = intent.getStringExtra("id");
         setTitle(intent.getStringExtra("title"));
@@ -56,12 +56,12 @@ public class CheckCheckDetailActivity extends AppCompatActivity {
         checkUnit = (TextView) findViewById(R.id.checkUnit);
         checkTime = (TextView) findViewById(R.id.checkTime);
         checkLocation = (TextView) findViewById(R.id.checkLocation);
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.checkcheck_detail_list);
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.selfcheck_detail_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
+        recyclerView.addItemDecoration(new edu.buaa.bwc.buaa_check.view.DividerItemDecoration(this, edu.buaa.bwc.buaa_check.view.DividerItemDecoration.VERTICAL_LIST));
 
-        myCheckCheckDetailAdapter = new MyCheckCheckDetailAdapter(mData);
-        recyclerView.setAdapter(myCheckCheckDetailAdapter);
+        mySelfCheckDetailAdapter = new MySelfCheckDetailAdapter(mData);
+        recyclerView.setAdapter(mySelfCheckDetailAdapter);
     }
 
     private void loadData(String id) {
@@ -69,12 +69,12 @@ public class CheckCheckDetailActivity extends AppCompatActivity {
             Toast.makeText(this, "未获取记录ID", Toast.LENGTH_SHORT).show();
         }
         System.out.println(id);
-        CheckCheckService service = RetrofitWrapper.getInstance().create(CheckCheckService.class);
-        Call<CheckCheckDetailHeader> call = service.getCheckDetailHeader(id);
-        call.enqueue(new Callback<CheckCheckDetailHeader>() {
+        SelfCheckService service = edu.buaa.bwc.buaa_check.view.RetrofitWrapper.getInstance().create(SelfCheckService.class);
+        Call<SelfCheckDetailHeader> call = service.getSelfCheckDetailHeader(id);
+        call.enqueue(new Callback<SelfCheckDetailHeader>() {
             @Override
-            public void onResponse(Call<CheckCheckDetailHeader> call, Response<CheckCheckDetailHeader> response) {
-                CheckCheckDetailHeader header = response.body();
+            public void onResponse(Call<SelfCheckDetailHeader> call, Response<SelfCheckDetailHeader> response) {
+                SelfCheckDetailHeader header = response.body();
                 if (header != null) {
                     checkName.setText(header.name);
                     otherCheckName.setText(header.otherName);
@@ -85,12 +85,12 @@ public class CheckCheckDetailActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<CheckCheckDetailHeader> call, Throwable t) {
-                Toast.makeText(CheckCheckDetailActivity.this, "获取Header数据失败", Toast.LENGTH_SHORT).show();
+            public void onFailure(Call<SelfCheckDetailHeader> call, Throwable t) {
+                Toast.makeText(SelfCheckDetailActivity.this, "获取Header数据失败", Toast.LENGTH_SHORT).show();
             }
         });
-        CheckCheckService detailService = RetrofitWrapper.getInstance().createScalar(CheckCheckService.class);
-        Call<String> detailCall = detailService.getCheckDetail(id);
+        SelfCheckService detailService = RetrofitWrapper.getInstance().createScalar(SelfCheckService.class);
+        Call<String> detailCall = detailService.getSelfCheckDetail(id);
         detailCall.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
@@ -106,16 +106,16 @@ public class CheckCheckDetailActivity extends AppCompatActivity {
                         }
                     }
                     if (checkDetailArray != null) {
-                        mData = GsonUtils.jsonToList(checkDetailArray.toString(), CheckCheckDetail[].class);
-                        myCheckCheckDetailAdapter.setData(mData);
-                        myCheckCheckDetailAdapter.notifyDataSetChanged();
+                        mData = GsonUtils.jsonToList(checkDetailArray.toString(), SelfCheckDetail[].class);
+                        mySelfCheckDetailAdapter.setData(mData);
+                        mySelfCheckDetailAdapter.notifyDataSetChanged();
                     }
                 }
             }
 
             @Override
             public void onFailure(Call call, Throwable t) {
-                Toast.makeText(CheckCheckDetailActivity.this, "获取Detail数据失败", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SelfCheckDetailActivity.this, "获取Detail数据失败", Toast.LENGTH_SHORT).show();
             }
         });
     }

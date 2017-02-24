@@ -16,11 +16,11 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.buaa.bwc.buaa_check.Api.CheckCheckService;
-import edu.buaa.bwc.buaa_check.POJOs.CheckCheckItem;
+import edu.buaa.bwc.buaa_check.Api.SelfCheckService;
 import edu.buaa.bwc.buaa_check.POJOs.ListResponse;
+import edu.buaa.bwc.buaa_check.POJOs.SelfCheckItem;
 import edu.buaa.bwc.buaa_check.R;
-import edu.buaa.bwc.buaa_check.adapter.MyCheckCheckRecyclerViewAdapter;
+import edu.buaa.bwc.buaa_check.adapter.MySelfCheckRecyclerViewAdapter;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -31,26 +31,26 @@ import retrofit2.Response;
  * Activities containing this fragment MUST implement the {OnListFragmentInteractionListener}
  * interface.
  */
-public class CheckCheckFragment extends Fragment {
+public class SelfCheckFragment extends Fragment {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
     private int mColumnCount = 1;
 
-    private List<CheckCheckItem> mData;
-    private MyCheckCheckRecyclerViewAdapter adapter;
+    private List<SelfCheckItem> mData;
+    private MySelfCheckRecyclerViewAdapter adapter;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public CheckCheckFragment() {
+    public SelfCheckFragment() {
     }
 
     // TODO: Customize parameter initialization
-    public static CheckCheckFragment newInstance(int columnCount) {
-        CheckCheckFragment fragment = new CheckCheckFragment();
+    public static SelfCheckFragment newInstance(int columnCount) {
+        SelfCheckFragment fragment = new SelfCheckFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
         fragment.setArguments(args);
@@ -64,35 +64,35 @@ public class CheckCheckFragment extends Fragment {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
 
-        mData = new ArrayList<CheckCheckItem>();
-        adapter = new MyCheckCheckRecyclerViewAdapter(mData,getContext());
-        adapter.setOnItemClickListener(new MyCheckCheckRecyclerViewAdapter.OnRecycleViewItemClickListener() {
+        mData = new ArrayList<SelfCheckItem>();
+        adapter = new MySelfCheckRecyclerViewAdapter(mData,getContext());
+        adapter.setOnItemClickListener(new MySelfCheckRecyclerViewAdapter.OnRecycleViewItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Intent intent = new Intent(CheckCheckFragment.this.getContext(), CheckCheckDetailActivity.class);
+                Intent intent = new Intent(SelfCheckFragment.this.getContext(), SelfCheckDetailActivity.class);
                 intent.putExtra("id", mData.get(position).id);
                 intent.putExtra("title",getActivity().getTitle());
                 startActivity(intent);
             }
         });
 
-        CheckCheckService service = RetrofitWrapper.getInstance().create(CheckCheckService.class);
-        Call<ListResponse<CheckCheckItem>> call = service.getCheckCheckList(1, 20);
-        call.enqueue(new Callback<ListResponse<CheckCheckItem>>() {
+        SelfCheckService service = edu.buaa.bwc.buaa_check.view.RetrofitWrapper.getInstance().create(SelfCheckService.class);
+        Call<ListResponse<SelfCheckItem>> call = service.getSelfCheckList(1, 20);
+        call.enqueue(new Callback<ListResponse<SelfCheckItem>>() {
             @Override
-            public void onResponse(Call<ListResponse<CheckCheckItem>> call, Response<ListResponse<CheckCheckItem>> response) {
-                for (CheckCheckItem i : response.body().rows) {
+            public void onResponse(Call<ListResponse<SelfCheckItem>> call, Response<ListResponse<SelfCheckItem>> response) {
+                for (SelfCheckItem i : response.body().rows) {
                     mData.add(i);
-                    Log.d("CheckCheckItem", i.toString());
+                    Log.d("SelfCheckItem", i.toString());
                 }
                 if (mData.size() == 0) {
-                    Toast.makeText(CheckCheckFragment.this.getContext(), "记录为空", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SelfCheckFragment.this.getContext(), "记录为空", Toast.LENGTH_SHORT).show();
                 }
                 adapter.notifyDataSetChanged();
             }
 
             @Override
-            public void onFailure(Call<ListResponse<CheckCheckItem>> call, Throwable t) {
+            public void onFailure(Call<ListResponse<SelfCheckItem>> call, Throwable t) {
                 t.printStackTrace();
             }
         });
@@ -101,7 +101,7 @@ public class CheckCheckFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_checkcheck_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_selfcheck_list, container, false);
 
         // Set the adapter
         if (view instanceof RecyclerView) {
@@ -113,7 +113,7 @@ public class CheckCheckFragment extends Fragment {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
             recyclerView.setAdapter(adapter);
-            recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL_LIST));
+            recyclerView.addItemDecoration(new edu.buaa.bwc.buaa_check.view.DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL_LIST));
         }
         return view;
     }

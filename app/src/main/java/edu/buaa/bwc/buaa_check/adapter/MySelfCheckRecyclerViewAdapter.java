@@ -13,24 +13,25 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import edu.buaa.bwc.buaa_check.Api.CheckCheckService;
-import edu.buaa.bwc.buaa_check.POJOs.CheckCheckItem;
+import edu.buaa.bwc.buaa_check.Api.SelfCheckService;
 import edu.buaa.bwc.buaa_check.POJOs.DeleteCheckResponse;
+import edu.buaa.bwc.buaa_check.POJOs.SelfCheckItem;
 import edu.buaa.bwc.buaa_check.R;
 import edu.buaa.bwc.buaa_check.view.RetrofitWrapper;
-import edu.buaa.bwc.buaa_check.view.CheckCheckRectifyActivity;
+import edu.buaa.bwc.buaa_check.view.SelfCheckRectifyActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class MyCheckCheckRecyclerViewAdapter extends RecyclerView.Adapter<MyCheckCheckRecyclerViewAdapter.ViewHolder> {
 
-    private final List<CheckCheckItem> mData;
+public class MySelfCheckRecyclerViewAdapter extends RecyclerView.Adapter<MySelfCheckRecyclerViewAdapter.ViewHolder> {
+
+    private final List<SelfCheckItem> mData;
     private OnRecycleViewItemClickListener mClickListener;
     private Context mContext;
 
-    public MyCheckCheckRecyclerViewAdapter(List<CheckCheckItem> data, Context context) {
+    public MySelfCheckRecyclerViewAdapter(List<SelfCheckItem> data, Context context) {
         mData = data;
         mContext = context;
     }
@@ -38,7 +39,7 @@ public class MyCheckCheckRecyclerViewAdapter extends RecyclerView.Adapter<MyChec
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_checkcheck_item, parent, false);
+                .inflate(R.layout.fragment_selfcheck_item, parent, false);
         return new ViewHolder(view);
     }
 
@@ -69,10 +70,10 @@ public class MyCheckCheckRecyclerViewAdapter extends RecyclerView.Adapter<MyChec
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mNameView = (TextView) view.findViewById(R.id.checkcheck_item_name);
-            mTimeView = (TextView) view.findViewById(R.id.checkcheck_item_time);
-            isOK = (TextView) view.findViewById(R.id.checkcheck_item_isOK);
-            mStatus = (TextView) view.findViewById(R.id.checkcheck_item_status);
+            mNameView = (TextView) view.findViewById(R.id.selfcheck_item_name);
+            mTimeView = (TextView) view.findViewById(R.id.selfcheck_item_time);
+            isOK = (TextView) view.findViewById(R.id.selfcheck_item_isOK);
+            mStatus = (TextView) view.findViewById(R.id.selfcheck_item_status);
 
             mView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -90,8 +91,8 @@ public class MyCheckCheckRecyclerViewAdapter extends RecyclerView.Adapter<MyChec
             public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
                 MenuItem menuItem1 = menu.add(1, 1, 1, "删除");
                 menuItem1.setOnMenuItemClickListener(mOnMenuItemClickListener);
-                CheckCheckItem checkCheckItem = mData.get(getAdapterPosition());
-                if (checkCheckItem.qualified.equals("1") && checkCheckItem.rectifyState.equals("1")) {
+                SelfCheckItem selfCheckItem = mData.get(getAdapterPosition());
+                if (selfCheckItem.qualified.equals("1") && selfCheckItem.rectifyState.equals("1")) {
                     MenuItem menuItem2 = menu.add(1, 2, 2, "整改");
                     menuItem2.setOnMenuItemClickListener(mOnMenuItemClickListener);
                 }
@@ -104,9 +105,9 @@ public class MyCheckCheckRecyclerViewAdapter extends RecyclerView.Adapter<MyChec
                 switch (item.getItemId()) {
                     case 1:
                         final int position = getAdapterPosition();
-                        CheckCheckItem checkCheckItemitem = mData.get(position);
-                        CheckCheckService service = RetrofitWrapper.getInstance().create(CheckCheckService.class);
-                        Call<DeleteCheckResponse> call = service.delCheckCheckItem(checkCheckItemitem.id, checkCheckItemitem.userId);
+                        SelfCheckItem selfCheckItemitem = mData.get(position);
+                        SelfCheckService service = RetrofitWrapper.getInstance().create(SelfCheckService.class);
+                        Call<DeleteCheckResponse> call = service.delSelfCheckItem(selfCheckItemitem.id, selfCheckItemitem.userId);
                         call.enqueue(new Callback<DeleteCheckResponse>() {
                             @Override
                             public void onResponse(Call<DeleteCheckResponse> call, Response<DeleteCheckResponse> response) {
@@ -127,7 +128,7 @@ public class MyCheckCheckRecyclerViewAdapter extends RecyclerView.Adapter<MyChec
                         });
                         break;
                     case 2:
-                        Intent intent = new Intent(mContext, CheckCheckRectifyActivity.class);
+                        Intent intent = new Intent(mContext, SelfCheckRectifyActivity.class);
                         mContext.startActivity(intent);
                         break;
                 }
