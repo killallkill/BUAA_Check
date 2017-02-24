@@ -111,7 +111,10 @@ public class MainActivity extends AppCompatActivity
             transaction.commit();
         } else if (id == R.id.nav_check_correction) {
             setToolbar(false, "检查整改");
-
+            CheckCheckRectifyFragment checkCheckRectifyFragment = new CheckCheckRectifyFragment();
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.content_main, checkCheckRectifyFragment);
+            transaction.commit();
         } else if (id == R.id.nav_spot_correction) {
             setToolbar(false, "抽查整改");
 
