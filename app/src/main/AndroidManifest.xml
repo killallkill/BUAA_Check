@@ -30,10 +30,12 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".view.CheckCheckDetailActivity" />
         <activity android:name=".view.CheckCheckAddActivity" />
-        <activity android:name=".view.CheckCheckRectifyActivity" />
-
+        <activity android:name=".view.CheckCheckRectifyActivity"/>
         <activity android:name=".view.CheckAddUploadActivity" />
-        <activity android:name=".view.RectifySendActivity"></activity>
+        <activity android:name=".view.RectifySendActivity"/>
+        <activity android:name=".view.SelfCheckDetailActivity" />
+        <activity android:name=".view.SelfCheckAddActivity" />
+        <activity android:name=".view.SelfCheckRectifyActivity"></activity>
     </application>
 
 </manifest>

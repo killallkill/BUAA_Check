@@ -101,7 +101,14 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_self_check) {
             setToolbar(true, "自查管理");
+            SelfCheckFragment selfCheckFragment = SelfCheckFragment.newInstance(1);
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+//            selfCheckFragment 会替换目前在 R.id.content_main ID 所标识的布局容器中的任何片段（如有）。通过调用 addToBackStack()
+//            可将替换事务保存到返回栈，以便用户能够通过按返回按钮撤消事务并回退到上一片段。
+            transaction.replace(R.id.content_main, selfCheckFragment);
 
+            //transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);//设置转化动画风格
+            transaction.commit();
         } else if (id == R.id.nav_check_correction) {
             setToolbar(false, "检查整改");
             CheckCheckRectifyFragment checkCheckRectifyFragment = new CheckCheckRectifyFragment();
