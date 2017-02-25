@@ -21,6 +21,7 @@ import edu.buaa.bwc.buaa_check.POJOs.CheckCheckDetail;
 import edu.buaa.bwc.buaa_check.POJOs.CheckCheckDetailHeader;
 import edu.buaa.bwc.buaa_check.R;
 import edu.buaa.bwc.buaa_check.Utils.GsonUtils;
+import edu.buaa.bwc.buaa_check.Utils.RetrofitWrapper;
 import edu.buaa.bwc.buaa_check.adapter.MyCheckCheckDetailAdapter;
 import retrofit2.Call;
 import retrofit2.Callback;

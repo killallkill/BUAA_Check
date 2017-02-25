@@ -20,6 +20,7 @@ import edu.buaa.bwc.buaa_check.Api.SelfCheckService;
 import edu.buaa.bwc.buaa_check.POJOs.ListResponse;
 import edu.buaa.bwc.buaa_check.POJOs.SelfCheckItem;
 import edu.buaa.bwc.buaa_check.R;
+import edu.buaa.bwc.buaa_check.Utils.RetrofitWrapper;
 import edu.buaa.bwc.buaa_check.adapter.MySelfCheckRecyclerViewAdapter;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -76,7 +77,7 @@ public class SelfCheckFragment extends Fragment {
             }
         });
 
-        SelfCheckService service = edu.buaa.bwc.buaa_check.view.RetrofitWrapper.getInstance().create(SelfCheckService.class);
+        SelfCheckService service = RetrofitWrapper.getInstance().create(SelfCheckService.class);
         Call<ListResponse<SelfCheckItem>> call = service.getSelfCheckList(1, 20);
         call.enqueue(new Callback<ListResponse<SelfCheckItem>>() {
             @Override

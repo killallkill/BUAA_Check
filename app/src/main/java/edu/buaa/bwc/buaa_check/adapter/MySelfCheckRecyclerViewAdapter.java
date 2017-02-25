@@ -14,15 +14,14 @@ import android.widget.TextView;
 import java.util.List;
 
 import edu.buaa.bwc.buaa_check.Api.SelfCheckService;
-import edu.buaa.bwc.buaa_check.POJOs.DeleteCheckResponse;
+import edu.buaa.bwc.buaa_check.POJOs.NormalResponse;
 import edu.buaa.bwc.buaa_check.POJOs.SelfCheckItem;
 import edu.buaa.bwc.buaa_check.R;
-import edu.buaa.bwc.buaa_check.view.RetrofitWrapper;
-import edu.buaa.bwc.buaa_check.view.SelfCheckRectifyActivity;
+import edu.buaa.bwc.buaa_check.Utils.RetrofitWrapper;
+import edu.buaa.bwc.buaa_check.view.RectifySendActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
 
 
 public class MySelfCheckRecyclerViewAdapter extends RecyclerView.Adapter<MySelfCheckRecyclerViewAdapter.ViewHolder> {
@@ -107,11 +106,11 @@ public class MySelfCheckRecyclerViewAdapter extends RecyclerView.Adapter<MySelfC
                         final int position = getAdapterPosition();
                         SelfCheckItem selfCheckItemitem = mData.get(position);
                         SelfCheckService service = RetrofitWrapper.getInstance().create(SelfCheckService.class);
-                        Call<DeleteCheckResponse> call = service.delSelfCheckItem(selfCheckItemitem.id, selfCheckItemitem.userId);
-                        call.enqueue(new Callback<DeleteCheckResponse>() {
+                        Call<NormalResponse> call = service.delSelfCheckItem(selfCheckItemitem.id, selfCheckItemitem.userId);
+                        call.enqueue(new Callback<NormalResponse>() {
                             @Override
-                            public void onResponse(Call<DeleteCheckResponse> call, Response<DeleteCheckResponse> response) {
-                                DeleteCheckResponse dcr = response.body();
+                            public void onResponse(Call<NormalResponse> call, Response<NormalResponse> response) {
+                                NormalResponse dcr = response.body();
                                 if (dcr.success) {
                                     Snackbar.make(mView, dcr.message, Snackbar.LENGTH_SHORT).show();
                                     mData.remove(position);
@@ -122,13 +121,15 @@ public class MySelfCheckRecyclerViewAdapter extends RecyclerView.Adapter<MySelfC
                             }
 
                             @Override
-                            public void onFailure(Call<DeleteCheckResponse> call, Throwable t) {
+                            public void onFailure(Call<NormalResponse> call, Throwable t) {
                                 t.printStackTrace();
                             }
                         });
                         break;
                     case 2:
-                        Intent intent = new Intent(mContext, SelfCheckRectifyActivity.class);
+                        Intent intent = new Intent(mContext, RectifySendActivity.class);
+                        intent.putExtra("type", RectifySendActivity.TYPE_SELF_CHECK);
+                        intent.putExtra("id", mData.get(getAdapterPosition()).id);
                         mContext.startActivity(intent);
                         break;
                 }

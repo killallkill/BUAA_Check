@@ -21,6 +21,7 @@ import edu.buaa.bwc.buaa_check.POJOs.SelfCheckDetail;
 import edu.buaa.bwc.buaa_check.POJOs.SelfCheckDetailHeader;
 import edu.buaa.bwc.buaa_check.R;
 import edu.buaa.bwc.buaa_check.Utils.GsonUtils;
+import edu.buaa.bwc.buaa_check.Utils.RetrofitWrapper;
 import edu.buaa.bwc.buaa_check.adapter.MySelfCheckDetailAdapter;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -69,7 +70,7 @@ public class SelfCheckDetailActivity extends AppCompatActivity {
             Toast.makeText(this, "未获取记录ID", Toast.LENGTH_SHORT).show();
         }
         System.out.println(id);
-        SelfCheckService service = edu.buaa.bwc.buaa_check.view.RetrofitWrapper.getInstance().create(SelfCheckService.class);
+        SelfCheckService service = RetrofitWrapper.getInstance().create(SelfCheckService.class);
         Call<SelfCheckDetailHeader> call = service.getSelfCheckDetailHeader(id);
         call.enqueue(new Callback<SelfCheckDetailHeader>() {
             @Override

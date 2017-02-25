@@ -20,6 +20,7 @@ import edu.buaa.bwc.buaa_check.Api.CheckCheckService;
 import edu.buaa.bwc.buaa_check.POJOs.CheckCheckItem;
 import edu.buaa.bwc.buaa_check.POJOs.ListResponse;
 import edu.buaa.bwc.buaa_check.R;
+import edu.buaa.bwc.buaa_check.Utils.RetrofitWrapper;
 import edu.buaa.bwc.buaa_check.adapter.MyCheckCheckRecyclerViewAdapter;
 import retrofit2.Call;
 import retrofit2.Callback;

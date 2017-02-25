@@ -23,6 +23,7 @@ import java.util.regex.Pattern;
 
 import edu.buaa.bwc.buaa_check.Api.UserService;
 import edu.buaa.bwc.buaa_check.R;
+import edu.buaa.bwc.buaa_check.Utils.RetrofitWrapper;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
