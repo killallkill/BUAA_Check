@@ -1,4 +1,4 @@
-package edu.buaa.bwc.buaa_check.view;
+package edu.buaa.bwc.buaa_check.Utils;
 
 import java.io.File;
 import java.io.IOException;
