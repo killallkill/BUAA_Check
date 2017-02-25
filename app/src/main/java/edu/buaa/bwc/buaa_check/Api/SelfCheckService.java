@@ -1,54 +1,47 @@
 package edu.buaa.bwc.buaa_check.Api;
 
-
 import java.io.File;
 import java.util.List;
-
-import edu.buaa.bwc.buaa_check.POJOs.CheckCheckDetailHeader;
-import edu.buaa.bwc.buaa_check.POJOs.CheckCheckItem;
 
 import edu.buaa.bwc.buaa_check.POJOs.CheckRole;
 import edu.buaa.bwc.buaa_check.POJOs.CheckUnit;
 import edu.buaa.bwc.buaa_check.POJOs.ListResponse;
-import edu.buaa.bwc.buaa_check.POJOs.OtherCheckPeople;
-import okhttp3.ResponseBody;
-
 import edu.buaa.bwc.buaa_check.POJOs.NormalResponse;
-import edu.buaa.bwc.buaa_check.POJOs.ListResponse;
+import edu.buaa.bwc.buaa_check.POJOs.OtherCheckPeople;
 import edu.buaa.bwc.buaa_check.POJOs.RectifyUser;
-
+import edu.buaa.bwc.buaa_check.POJOs.SelfCheckDetailHeader;
+import edu.buaa.bwc.buaa_check.POJOs.SelfCheckItem;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
-
 import retrofit2.http.Part;
-
 import retrofit2.http.Query;
 
 /**
- * Created by XJX on 2017/1/3.
+ * Created by Gary on 2017/1/13.
  */
 
-public interface CheckCheckService {
+public interface SelfCheckService {
+    @FormUrlEncoded
+    @POST("c_self_list.do")//获取列表
+    Call<ListResponse<SelfCheckItem>> getSelfCheckList(@Field("page") int page, @Field("rows") int rows);
 
     @FormUrlEncoded
-    @POST("c_c_list.do")
-    Call<ListResponse<CheckCheckItem>> getCheckCheckList(@Field("page") int page, @Field("rows") int rows);
+    @POST("c_spot_del.do")//删除抽查管理记录
+    Call<NormalResponse> delSelfCheckItem(@Field("id") String id, @Field("userId") String userId);
 
     @FormUrlEncoded
-    @POST("c_spot_del.do")
-    Call<NormalResponse> delCheckCheckItem(@Field("id") String id, @Field("userId") String userId);
+    @POST("c_spot_view.do")//检查记录详细信息
+    Call<SelfCheckDetailHeader> getSelfCheckDetailHeader(@Field("id") String id);
 
     @FormUrlEncoded
-    @POST("c_spot_view.do")
-    Call<CheckCheckDetailHeader> getCheckDetailHeader(@Field("id") String id);
+    @POST("c_c_view.do")//检查记录详情
+    Call<String> getSelfCheckDetail(@Field("id") String id);
 
-    @FormUrlEncoded
-    @POST("c_c_view.do")
-    Call<String> getCheckDetail(@Field("id") String id);
-
+    //*********************
     //检查角色
     @POST("c_c_dept_role_check_list.do")
     Call<List<CheckRole>> getCheckRole();
@@ -82,5 +75,4 @@ public interface CheckCheckService {
                                      @Field("userRoleId") String urid,
                                      @Field("proposal") String proposal,
                                      @Field("type") String type);
-
 }

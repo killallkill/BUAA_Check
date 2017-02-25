@@ -28,4 +28,7 @@
     <string name="title_check_correction">检查整改</string>
     <string name="title_spot_correction">抽查整改</string>
     <string name="title_self_correction">自查整改</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
