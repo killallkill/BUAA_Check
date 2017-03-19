@@ -27,6 +27,8 @@
     <style name="check_check_add_select_editView" parent="@style/check_check_add_title_textView">
         <item name="android:background">@drawable/check_add_bg</item>
         <item name="android:editable">false</item>
+        <item name="android:layout_width">200dp</item>
+        <item name="android:layout_height">35dp</item>
     </style>
 
 </resources>

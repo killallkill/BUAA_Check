@@ -1,30 +1,25 @@
 package edu.buaa.bwc.buaa_check.Api;
 
 
-import java.io.File;
 import java.util.List;
 
 import edu.buaa.bwc.buaa_check.POJOs.CheckCheckDetailHeader;
 import edu.buaa.bwc.buaa_check.POJOs.CheckCheckItem;
-
 import edu.buaa.bwc.buaa_check.POJOs.CheckRole;
 import edu.buaa.bwc.buaa_check.POJOs.CheckUnit;
 import edu.buaa.bwc.buaa_check.POJOs.ListResponse;
-import edu.buaa.bwc.buaa_check.POJOs.OtherCheckPeople;
-import okhttp3.ResponseBody;
-
 import edu.buaa.bwc.buaa_check.POJOs.NormalResponse;
-import edu.buaa.bwc.buaa_check.POJOs.ListResponse;
+import edu.buaa.bwc.buaa_check.POJOs.OtherCheckPeople;
 import edu.buaa.bwc.buaa_check.POJOs.RectifyUser;
-
+import edu.buaa.bwc.buaa_check.POJOs.UploadResponse;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
-
 import retrofit2.http.Part;
-
 import retrofit2.http.Query;
 
 /**
@@ -68,8 +63,9 @@ public interface CheckCheckService {
     Call<List<CheckUnit>> getThreeClassUnit(@Field("id") String id);
 
     @Multipart
-    @POST("")
-    Call<ResponseBody> upload(@Part("") File file);
+    @POST("c_c_upload.do")
+    Call<UploadResponse> upload(@Part("description") RequestBody description,
+                                @Part MultipartBody.Part file);
 
     @POST("check_check_spotUser.do")
     Call<List<RectifyUser>> getRectifyUsers(@Query("type") String type, @Query("id") String id);
